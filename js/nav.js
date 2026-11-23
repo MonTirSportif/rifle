@@ -1,4 +1,4 @@
-/* MonTirSportif – navigation : menu ☰ sur mobile, bouton « haut de page » */
+/* MonTirSportif – navigation : menu ☰ sur mobile, fil d'Ariane, bouton « haut de page » */
 (function () {
   var me = document.currentScript || document.querySelector('script[src$="js/nav.js"]');
   var base = me ? me.src.replace(/js\/nav\.js(\?.*)?$/, '') : '';
@@ -18,7 +18,25 @@
   };
   function ico(k) { return '<svg class="ico" viewBox="0 0 24 24" aria-hidden="true">' + P[k] + '</svg>'; }
 
+  var T = {
+    'index.html': ['Accueil', null],
+    'la-position-debout.html': ['La position debout', 'index.html#themes'],
+    'index.html#themes': ['Préparation du tireur', 'index.html'],
+    'index.html#lectures': ['Bibliothèque', 'index.html'],
+    'bernard-dropsy.html': ['Bernard Dropsy', 'index.html#lectures'],
+    'michel-bury.html': ['Michel Bury', 'index.html#lectures'],
+    'securite.html': ['Sécurité', 'index.html'],
+    'a-propos.html': ['À propos', 'index.html'],
+    'christian-alquier.html': ['Christian Alquier', 'a-propos.html'],
+    'c-est-nouveau.html': ["C'est nouveau", 'index.html'],
+    'plan-du-site.html': ['Plan du site', 'index.html']
+  };
+
   var css = '' +
+    /* fil d'Ariane */
+    '.crumbs{font-size:.82rem;color:var(--mut,#667);margin:0 0 .7rem;line-height:1.5}' +
+    '.crumbs a{color:var(--mut,#667);text-decoration:none}.crumbs a:hover{color:var(--acc);text-decoration:underline}' +
+    '.crumbs .sep{margin:0 .35rem;opacity:.6}.crumbs [aria-current]{color:var(--txt,#1b2430);font-weight:600}' +
     /* fil d'Ariane */
     '.crumbs{font-size:.82rem;color:var(--mut,#667);margin:0 0 .7rem;line-height:1.5}' +
     '.crumbs a{color:var(--mut,#667);text-decoration:none}.crumbs a:hover{color:var(--acc);text-decoration:underline}' +
@@ -32,10 +50,31 @@
     '.mnav a .ico{margin-right:0;width:1.2rem;height:1.2rem}.mnav a span{display:inline-grid;place-items:center;width:1.5rem;height:1.5rem;border-radius:6px;color:#fff;font-size:.8rem;font-weight:700}' +
     '.mnav a.sub{margin-left:1.2rem;font-size:.92rem}' +
     '.mnav h4{margin:1rem 0 .3rem;font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:var(--mut,#667)}' +
-    '@media (max-width:1280px){header #nav{display:none!important}.burger{display:inline-flex}}' +
+    '@media (max-width:1000px){header #nav{display:none!important}.burger{display:inline-flex}}' +
     'body.mnav-open{overflow:hidden}' +
     '@media print{.crumbs,.burger,.mnav,.totop{display:none!important}}';
   var st = document.createElement('style'); st.textContent = css; document.head.appendChild(st);
+
+  /* ---------- Fil d'Ariane + bouton Retour vers la page parente ---------- */
+  function crumbs() {
+    var back = document.querySelector('.back');
+    if (!back || !T[key]) return;
+    var chain = [], k = key, guard = 0;
+    while (k && T[k] && guard++ < 8) { chain.unshift(k); k = T[k][1]; }
+    var d = document.createElement('div');
+    d.className = 'crumbs'; d.setAttribute('role', 'navigation'); d.setAttribute('aria-label', "Fil d'Ariane");
+    chain.forEach(function (c, i) {
+      if (i) { var s = document.createElement('span'); s.className = 'sep'; s.textContent = '›'; d.appendChild(s); }
+      if (i === chain.length - 1) {
+        var cur = document.createElement('span'); cur.setAttribute('aria-current', 'page'); cur.textContent = T[c][0]; d.appendChild(cur);
+      } else {
+        var a = document.createElement('a'); a.href = rel(c); a.textContent = T[c][0]; d.appendChild(a);
+      }
+    });
+    back.parentNode.insertBefore(d, back);
+    var parent = T[key][1];
+    if (parent) { back.href = rel(parent); back.title = 'Retour : ' + T[parent][0]; }
+  }
 
   /* ---------- Menu ☰ (téléphone et tablette) ---------- */
   function burger() {
@@ -54,17 +93,24 @@
     }
     function h(t) { var e = document.createElement('h4'); e.textContent = t; m.appendChild(e); }
     add(rel('index.html'), ico('home') + 'Accueil');
-    h('Les rubriques');
-    Array.prototype.forEach.call(nav.querySelectorAll('a'), function (a) {
-      if (a.textContent.trim() === 'Accueil' || /^https?:/.test(a.getAttribute('href'))) return;
-      add(a.getAttribute('href'), a.innerHTML);
+    Array.prototype.forEach.call(nav.children, function (el) {
+      if (el.tagName === 'A') {
+        if (el.textContent.trim() === 'Accueil' || /^https?:/.test(el.getAttribute('href'))) return;
+        add(el.getAttribute('href'), el.innerHTML);
+      } else if (el.tagName === 'BUTTON' && el.getAttribute('aria-controls')) {
+        var mm = document.getElementById(el.getAttribute('aria-controls')); if (!mm) return;
+        h(el.textContent.replace('▾', '').trim());
+        Array.prototype.forEach.call(mm.querySelectorAll('a'), function (a) {
+          var x = add(a.getAttribute('href'), a.innerHTML, a.classList.contains('sub') ? 'sub' : '');
+          if (a.target) { x.target = a.target; x.rel = 'noopener'; }
+        });
+      }
     });
     h('Se repérer');
     add(rel('c-est-nouveau.html'), ico('star') + "C'est nouveau");
     add(rel('plan-du-site.html'), ico('map') + 'Plan du site');
     h('Aussi chez MonTirSportif');
     var rp = add('https://pistol.montirsportif.com/', 'Le site Pistolet ↗'); rp.target = '_blank'; rp.rel = 'noopener';
-    var rb = add('https://pistol.montirsportif.com/bensport.html', 'bensport ↗'); rb.target = '_blank'; rb.rel = 'noopener';
     document.body.appendChild(m);
 
     function place() { var r = document.querySelector('header').getBoundingClientRect(); m.style.top = Math.max(0, r.bottom) + 'px'; }
@@ -76,7 +122,7 @@
     b.addEventListener('click', function (e) { e.stopPropagation(); open(m.hidden); });
     m.addEventListener('click', function (e) { if (e.target.closest('a')) open(false); });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape') open(false); });
-    window.addEventListener('resize', function () { if (window.innerWidth > 1280) open(false); else if (!m.hidden) place(); });
+    window.addEventListener('resize', function () { if (window.innerWidth > 1000) open(false); else if (!m.hidden) place(); });
   }
 
   /* ---------- Bouton « haut de page » ---------- */
@@ -92,6 +138,6 @@
     window.addEventListener('scroll', upd, { passive: true }); upd();
   }
 
-  function init() { burger(); totop(); }
+  function init() { crumbs(); burger(); totop(); }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 })();
