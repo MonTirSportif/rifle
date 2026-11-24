@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}(function(){var c=null;try{c=JSON.parse(localStorage.getItem('mts-consent')||'null');}catch(e){}var ok=c&&c.v==='yes'&&(Date.now()-c.t)<3.4e10;window.MTS_CONSENT=c;gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:ok?'granted':'denied'});window.mtsLoadGTM=function(){if(window.mtsGTM)return;window.mtsGTM=1;dataLayer.push({'gtm.start':new Date().getTime(),event:'gtm.js'});var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtm.js?id=GTM-5FBNSMQH';document.head.appendChild(s);};if(ok)window.mtsLoadGTM();})();</script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Naviguer dans le site – Carabine ISSF – MonTirSportif</title>
+<meta name="description" content="Plusieurs façons de parcourir le site Carabine : accès direct par thème, parcours guidé thème après thème, et navigation selon votre écran.">
+<link rel="canonical" href="https://rifle.montirsportif.com/navigation.html">
+<link rel="icon" type="image/png" href="img/coeur.png">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Naviguer dans le site – Carabine ISSF – MonTirSportif">
+<meta property="og:description" content="Plusieurs façons de parcourir le site Carabine : accès direct par thème, parcours guidé thème après thème, et navigation selon votre écran.">
+<meta property="og:url" content="https://rifle.montirsportif.com/navigation.html">
+<meta property="og:image" content="https://rifle.montirsportif.com/img/logo.png">
+<meta property="og:locale" content="fr_FR">
+<link rel="preload" href="fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/site.css?v=20261124b">
+<style>.home-tools{margin:0 0 1rem}.home-tools .print-btn{margin-left:0;display:inline-block;text-decoration:none}.nav-site-btn{background:var(--acc)!important;border-color:var(--acc)!important;color:#fff!important;font-weight:600}@media print{.home-tools{display:none}}</style>
+<style>.tile .soon{margin-top:.3rem;font-weight:700;color:var(--t);font-size:.75rem;letter-spacing:.04em;text-transform:uppercase}.nav-ext{margin-left:auto}</style>
+<style>#lib-btn{font:inherit;font-size:.9rem;color:var(--mut);background:none;border:0;padding:.35rem .65rem;border-radius:99px;cursor:pointer;white-space:nowrap}#lib-btn:hover,#lib-btn[aria-expanded="true"]{background:var(--card);color:var(--txt)}#lib-btn.on,#prep-btn.on{color:#fff;background:var(--navc)}</style>
+<style id="nav-css">
+.var-cards{display:grid;grid-template-columns:1fr 1fr;gap:.9rem;margin-top:1.4rem}
+.var-card{display:flex;gap:.9rem;align-items:flex-start;text-decoration:none;color:var(--txt);background:var(--card);border:1px solid var(--line);border-left:5px solid var(--acc);border-radius:14px;padding:1rem 1.2rem;box-shadow:0 1px 2px rgba(27,36,48,.06)}
+.var-card:hover{border-color:var(--acc)}
+.var-card .vn{flex:none;width:2.4rem;height:2.4rem;border-radius:10px;background:var(--acc);color:#fff;display:grid;place-items:center;font-family:"Barlow Condensed";font-weight:700;font-size:1.3rem}
+.var-card b{display:block;font-family:"Barlow Condensed";font-size:1.35rem;line-height:1.15;color:var(--acc)}
+.var-card small{display:block;color:var(--mut);font-size:.92rem;line-height:1.45;margin-top:.2rem}
+.mosa{display:grid;grid-template-columns:repeat(4,1fr);gap:.9rem}
+.mosa .tile{min-height:150px}
+.mosa .tile .cnt{margin-top:auto;font-size:.8rem;font-weight:600;color:var(--t)}
+.mosa .tile.alt{border-top-width:4px;border-style:solid;background:var(--bg2)}
+.prc{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:0 1px 2px rgba(27,36,48,.06)}
+.prc-pills{display:flex;gap:.45rem;overflow-x:auto;padding:.9rem 1rem;border-bottom:1px solid var(--line);scrollbar-width:thin}
+.prc-pills button{flex:none;display:flex;align-items:center;gap:.4rem;font:inherit;font-size:.9rem;padding:.45rem .9rem;border-radius:99px;border:1px solid var(--line);background:var(--card);color:var(--mut);cursor:pointer}
+.prc-pills button i{font-style:normal;display:inline-grid;place-items:center;width:1.35rem;height:1.35rem;border-radius:6px;background:var(--c);color:#fff;font-family:"Barlow Condensed";font-weight:700;font-size:.85rem}
+.prc-pills button[aria-selected="true"]{background:var(--c);border-color:var(--c);color:#fff;font-weight:600}
+.prc-pills button[aria-selected="true"] i{background:rgba(255,255,255,.25)}
+.prc-head{padding:1.1rem 1.2rem .4rem}
+.prc-head h3{font-size:1.7rem;margin:0;color:var(--c)}
+.prc-head p{margin:.3rem 0 0;color:var(--mut);font-size:.95rem}
+.gauge{height:6px;background:var(--bg);border-radius:3px;margin:.8rem 0 .3rem}
+.gauge div{height:6px;border-radius:3px;background:var(--c);transition:width .25s}
+.prc-pos{font-size:.82rem;color:var(--mut)}
+.prc-list{list-style:none;margin:.5rem 0 0;padding:0;counter-reset:pr}
+.prc-list a{display:flex;align-items:center;gap:.8rem;padding:.75rem 1.2rem;border-top:1px solid var(--line);text-decoration:none;color:var(--txt)}
+.prc-list a:hover{background:var(--bg2)}
+.prc-list a::before{counter-increment:pr;content:counter(pr);flex:none;width:1.8rem;height:1.8rem;border-radius:50%;background:var(--bg);color:var(--c);font-weight:700;display:grid;place-items:center;font-size:.85rem}
+.prc-list a::after{content:"›";margin-left:auto;color:var(--mut);font-size:1.3rem}
+.prc-list a.pg{font-weight:600}
+.prc-list a.pg small{display:block;font-weight:400;color:var(--mut);font-size:.78rem}
+.prc-foot{display:flex;justify-content:space-between;gap:.6rem;flex-wrap:wrap;padding:.9rem 1.2rem;border-top:1px solid var(--line);background:var(--bg2)}
+.prc-foot button{font:inherit;font-size:.92rem;padding:.55rem 1rem;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--txt);cursor:pointer}
+.prc-foot button:hover{border-color:var(--c)}
+.prc-foot a{font-size:.92rem;font-weight:600;color:var(--c);align-self:center}
+.botnav{display:none}
+@media(max-width:980px){.mosa{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:820px){
+ .var-cards{grid-template-columns:1fr}
+ .botnav{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:40;background:var(--card);border-top:1px solid var(--line);justify-content:space-around;padding:.45rem 0 .6rem;box-shadow:0 -2px 10px rgba(27,36,48,.06)}
+ .botnav a{display:flex;flex-direction:column;align-items:center;gap:.1rem;font-size:.72rem;color:var(--mut);text-decoration:none;min-width:4rem}
+ .botnav svg{width:22px;height:22px}
+ .botnav a.cur{color:var(--acc);font-weight:600}
+ body{padding-bottom:64px}
+ .totop{bottom:76px}
+}
+@media(max-width:420px){.mosa .tile small{display:none}.mosa .tile{min-height:110px}}
+@media print{.botnav,.prc-pills,.prc-foot{display:none!important}}
+.device-hint{display:flex;gap:.8rem;align-items:center;margin-top:1rem;background:var(--card);border:1px dashed var(--acc);border-radius:14px;padding:.75rem 1rem;font-size:.95rem}
+.device-hint svg{flex:none;width:28px;height:28px;color:var(--acc)}
+.device-hint b{color:var(--acc)}
+.dev-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.9rem}
+.dev{position:relative;background:var(--card);border:1px solid var(--line);border-top:4px solid var(--d);border-radius:14px;padding:1rem 1.1rem;box-shadow:0 1px 2px rgba(27,36,48,.06)}
+.dev svg{width:34px;height:34px;color:var(--d)}
+.dev h3{margin:.4rem 0 .5rem;color:var(--d)}
+.dev ul{margin:0;padding-left:1.1rem;font-size:.92rem}
+.dev li{margin-bottom:.35rem}
+.dev kbd{font:600 .78rem Inter,sans-serif;background:var(--bg2);border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;padding:.05rem .35rem}
+.dev .here{display:none;position:absolute;top:.8rem;right:.8rem;background:var(--d);color:#fff;font-size:.72rem;font-weight:700;border-radius:99px;padding:.15rem .55rem}
+.dev.is-here{border-color:var(--d);box-shadow:0 0 0 2px var(--d)}
+.dev.is-here .here{display:inline-block}
+.dev button{margin-top:.5rem;font:inherit;font-size:.88rem;padding:.45rem .85rem;border-radius:10px;border:1px solid var(--d);background:var(--card);color:var(--d);cursor:pointer}
+.rail{display:none}
+@media(min-width:1400px){.rail{display:flex;flex-direction:column;gap:.3rem;position:fixed;left:1rem;top:50%;transform:translateY(-50%);z-index:30;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:.6rem;box-shadow:0 4px 14px rgba(27,36,48,.08);max-width:190px}
+ .rail b{font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:var(--mut);padding:0 .4rem .2rem}
+ .rail a{font-size:.85rem;text-decoration:none;color:var(--txt);padding:.35rem .5rem;border-radius:8px}
+ .rail a:hover,.rail a.cur{background:var(--bg2);color:var(--acc)}}
+.prc-hint{font-size:.8rem;color:var(--mut);padding:0 1.2rem .4rem}
+.print-all{display:none}
+@media(max-width:980px){.dev-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.dev-grid{grid-template-columns:1fr}}
+@media print{#acces-direct,#parcours-guide,#appareils>.kicker,#appareils>h2{display:none!important}.var-cards,.device-hint,.dev-grid,.mosa,.prc,.rail,#appareils>p{display:none!important}.print-all{display:block!important}.print-all h3{margin:4mm 0 1mm}.print-all ul{margin:0 0 2mm;columns:2}}
+</style>
+</head>
+<body>
+<header><div class="bar"><a class="logo" href="index.html" aria-label="MonTirSportif Carabine — accueil"><img src="img/logo.png" alt="MonTirSportif"></a>
+<nav id="nav"><a href="index.html">Accueil</a><a href="index.html#epreuves">Les épreuves</a><button type="button" id="prep-btn" aria-haspopup="true" aria-expanded="false" aria-controls="prep-menu" data-menu>Préparation du tireur ▾</button><a href="securite.html">Sécurité</a><button type="button" id="lib-btn" aria-haspopup="true" aria-expanded="false" aria-controls="lib-menu" data-menu>Bibliothèque ▾</button><a href="a-propos.html">À propos</a><a href="https://pistol.montirsportif.com/" target="_blank" rel="noopener">Le site Pistolet ↗</a></nav><div class="prep-menu" id="prep-menu" role="menu"><a role="menuitem" href="la-position-debout.html"><span style="background:#e0601f">1</span>Technique : la position debout</a><a role="menuitem" href="index.html#lectures"><span style="background:#7656d6">2</span>Mental : les textes de référence</a><a role="menuitem" href="bernard-dropsy.html#bd-materiel"><span style="background:#12938a">3</span>Matériel et munitions</a><a role="menuitem" href="michel-bury.html#mb-nutrition"><span style="background:#3d8f2a">4</span>Condition physique et nutrition</a><a role="menuitem" href="michel-bury.html#mb-competition"><span style="background:#8a5f00">5</span>S’entraîner et préparer une compétition</a><a role="menuitem" class="sub" href="index.html#themes">Les 5 thèmes de la préparation</a></div><div class="prep-menu" id="lib-menu" role="menu"><a role="menuitem" href="index.html#lectures"><span style="background:#2c6fb7">📚</span>Textes de référence</a><a role="menuitem" href="bernard-dropsy.html"><span style="background:#2c6fb7">BD</span>Bernard Dropsy</a><a role="menuitem" href="michel-bury.html"><span style="background:#7656d6">MB</span>Michel Bury</a><a role="menuitem" href="index.html#videos"><span style="background:#c4302b">▶</span>Les vidéos carabine</a><a role="menuitem" class="sub" href="https://pistol.montirsportif.com/bensport.html" target="_blank" rel="noopener">bensport ↗</a></div><script>(function(){var bs=document.querySelectorAll("button[data-menu]");function closeAll(x){bs.forEach(function(b){var m=document.getElementById(b.getAttribute("aria-controls"));if(m&&m!==x){m.classList.remove("open");b.setAttribute("aria-expanded","false");}});}bs.forEach(function(b){var m=document.getElementById(b.getAttribute("aria-controls"));if(!m)return;function place(){var bar=m.parentNode.getBoundingClientRect(),r=b.getBoundingClientRect(),w=m.offsetWidth||260;var x=r.left-bar.left+r.width/2;x=Math.max(w/2+8,Math.min(bar.width-w/2-8,x));m.style.left=x+"px";}b.addEventListener("click",function(e){e.stopPropagation();closeAll(m);var o=m.classList.toggle("open");b.setAttribute("aria-expanded",o?"true":"false");if(o)place();});m.addEventListener("click",function(e){if(e.target.closest("a"))closeAll();});});document.addEventListener("click",function(e){if(!e.target.closest(".prep-menu"))closeAll();});document.addEventListener("keydown",function(e){if(e.key==="Escape")closeAll();});})();</script></div></header>
+<main class="view on" id="navigation" style="--acc:#44546a">
+<div class="theme-head"><a class="back" href="index.html">← Retour</a><button type="button" class="print-btn" onclick="window.print()" title="Imprimer la liste de toutes les rubriques"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>Imprimer</button><div class="kicker">Navigation</div><h1>Naviguer dans le site</h1><p class="lead">Cette page vous propose plusieurs façons de découvrir le contenu de MonTirSportif. Les rubriques sont les mêmes, seule la manière de les parcourir change : choisissez la variante qui vous convient, selon que vous cherchez un sujet précis ou que vous souhaitez tout découvrir pas à pas.</p>
+<div class="var-cards"><a class="var-card" href="#acces-direct"><span class="vn">1</span><div><b>Accès direct par thème</b><small>Vous savez ce que vous cherchez : tous les thèmes sont visibles d'un coup d'œil, ouvrez celui qui vous intéresse.</small></div></a><a class="var-card" href="#parcours-guide"><span class="vn">2</span><div><b>Parcours guidé, thème après thème</b><small>Vous voulez tout découvrir : suivez les cinq préparations dans l'ordre, rubrique après rubrique.</small></div></a><a class="var-card" href="#appareils" style="grid-column:1/-1"><span class="vn">3</span><div><b>Selon votre écran</b><small>Téléphone, tablette, ordinateur ou papier : la navigation s'adapte à votre appareil. Découvrez les raccourcis et gestes disponibles sur chacun.</small></div></a></div>
+<div class="device-hint" id="device-hint" hidden></div>
+<nav class="somm" aria-label="Sommaire"><p class="somm-t">Sommaire</p><ul><li><a href="#acces-direct">Accès direct par thème</a><span> — Variante 1</span></li><li><a href="#parcours-guide">Parcours guidé</a><span> — Variante 2</span></li><li><a href="#appareils">Selon votre écran</a><span> — Variante 3</span></li><li><a href="plan-du-site.html">Le plan du site complet</a><span> — Tout voir</span></li></ul></nav></div>
+
+<section id="acces-direct" class="first"><div class="kicker">Variante 1</div><h2>Accès direct par thème</h2>
+<p>Idéale pour aller droit au but. Touchez une tuile pour ouvrir la rubrique.</p>
+<div class="mosa"><a class="tile" href="la-position-debout.html" style="--t:#e0601f"><span class="n">1</span><b>Préparation technique</b><small>Les positions couché, à genou et debout, la visée, le lâcher, la respiration.</small><span class="cnt">6 rubriques à découvrir</span></a><a class="tile" href="index.html#lectures" style="--t:#7656d6"><span class="n">2</span><b>Préparation mentale</b><small>Concentration, routine, gestion du stress et des émotions : les textes de référence.</small><span class="cnt">2 rubriques à découvrir</span></a><a class="tile" href="bernard-dropsy.html#bd-materiel" style="--t:#12938a"><span class="n">3</span><b>Préparation matérielle</b><small>La carabine, les munitions, la tenue et les réglages.</small><span class="cnt">3 rubriques à découvrir</span></a><a class="tile" href="michel-bury.html#mb-nutrition" style="--t:#3d8f2a"><span class="n">4</span><b>Préparation physique</b><small>Condition physique, nutrition et protection du tireur.</small><span class="cnt">2 rubriques à découvrir</span></a><a class="tile" href="michel-bury.html#mb-competition" style="--t:#8a5f00"><span class="n">5</span><b>Préparation tactique</b><small>S’entraîner, préparer une compétition et connaître les épreuves.</small><span class="cnt">2 rubriques à découvrir</span></a><a class="tile alt" href="index.html#epreuves" style="--t:#2c6fb7"><b>Les épreuves</b><small>Carabine 10 m, 50 m 3 positions, 50 m couché et 300 m.</small></a><a class="tile alt" href="index.html#lectures" style="--t:#7656d6"><b>Textes de référence</b><small>Seize textes d’archives : technique, mental, entraînement, histoire.</small></a><a class="tile alt" href="securite.html" style="--t:#e5473d"><b>Sécurité</b><small>Les règles de base et les points propres à la carabine.</small></a></div></section>
+
+<section id="parcours-guide"><div class="kicker">Variante 2</div><h2>Parcours guidé, thème après thème</h2>
+<p>Idéale pour découvrir le site comme un programme complet. Choisissez un thème, ouvrez ses rubriques dans l'ordre, puis passez au thème suivant.</p>
+<div class="prc" id="prc">
+<div class="prc-pills" id="prc-pills" role="tablist" aria-label="Les 5 thèmes de la préparation"></div>
+<div class="prc-head"><h3 id="prc-title"></h3><p id="prc-txt"></p><div class="gauge"><div id="prc-bar"></div></div><span class="prc-pos" id="prc-pos"></span></div>
+<p class="prc-hint" id="prc-hint"></p><ul class="prc-list" id="prc-list"></ul>
+<div class="prc-foot"><button type="button" id="prc-prev">← Thème précédent</button><a id="prc-open" href="#">Ouvrir la page du thème</a><button type="button" id="prc-next">Thème suivant →</button></div>
+</div>
+<noscript><p>Le parcours guidé a besoin de JavaScript. Utilisez l'accès direct par thème ou le <a href="plan-du-site.html">plan du site</a>.</p></noscript>
+</section>
+<section id="appareils"><div class="kicker">Variante 3</div><h2>Selon votre écran</h2>
+<p>Le site s'adapte à l'appareil que vous utilisez. Voici, pour chacun, la façon la plus pratique de naviguer. Votre écran actuel est signalé.</p>
+<div class="dev-grid">
+<div class="dev" id="dev-tel" style="--d:#e5473d"><span class="here">Votre écran</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/></svg><h3>Téléphone</h3><ul><li>La <b>barre en bas de l'écran</b> reste toujours à portée du pouce : Accueil, Thèmes, Épreuves, Lectures, Plan.</li><li>Dans le parcours guidé, <b>balayez vers la gauche ou la droite</b> pour changer de thème.</li><li>Le bouton <b>↑</b> remonte en haut de la page.</li></ul></div>
+<div class="dev" id="dev-tab" style="--d:#7656d6"><span class="here">Votre écran</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2.5"/><path d="M11 18h2"/></svg><h3>Tablette</h3><ul><li>Les tuiles s'affichent <b>sur deux colonnes</b>, faciles à toucher.</li><li>Le menu du haut défile du doigt ; « Préparation du tireur » ouvre les 5 thèmes.</li><li>Le balayage fonctionne aussi dans le parcours guidé.</li></ul></div>
+<div class="dev" id="dev-ord" style="--d:#12938a"><span class="here">Votre écran</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg><h3>Ordinateur</h3><ul><li>Touches <kbd>←</kbd> <kbd>→</kbd> : thème précédent ou suivant dans le parcours.</li><li>Touches <kbd>1</kbd> à <kbd>5</kbd> : ouvrir directement un thème du parcours.</li><li><kbd>Tab</kbd> : se déplacer de lien en lien.</li><li>Sur grand écran, un <b>sommaire flottant</b> reste visible à gauche.</li></ul></div>
+<div class="dev" id="dev-imp" style="--d:#8a5f00"><span class="here">Votre écran</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 9V3h10v6"/><rect x="3" y="9" width="18" height="8" rx="2"/><path d="M7 14h10v7H7z"/></svg><h3>Sur papier</h3><ul><li>Imprimez cette page : vous obtenez <b>la liste complète des thèmes et rubriques</b>, à garder dans votre sac de tir.</li><li>Chaque page du site a aussi son bouton « Imprimer ».</li></ul><button type="button" onclick="window.print()"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>Imprimer la liste</button></div>
+</div>
+<div class="print-all" id="print-all"></div>
+</section>
+<nav class="rail" aria-label="Sommaire de la page"><b>Sommaire</b><a href="#navigation">Haut de page</a><a href="#acces-direct">1. Accès direct</a><a href="#parcours-guide">2. Parcours guidé</a><a href="#appareils">3. Selon votre écran</a><a href="plan-du-site.html">Plan du site</a></nav>
+<p class="print-src" style="margin-top:8mm;font-size:9pt;color:#444">MonTirSportif – https://rifle.montirsportif.com/navigation.html</p></main>
+<nav class="botnav" aria-label="Navigation rapide"><a href="index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></svg>Accueil</a><a href="navigation.html" class="cur" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg>Thèmes</a><a href="index.html#epreuves"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="1" fill="currentColor"/></svg>Épreuves</a><a href="index.html#lectures"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5a2 2 0 0 1 2-2h12v16H6a2 2 0 0 0-2 2z"/><path d="M8 7h6"/></svg>Lectures</a><a href="plan-du-site.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/></svg>Plan</a></nav>
+<footer> <img class="footlogo" src="img/logo.png" alt="MonTirSportif"> <p><b>MonTirSportif</b> — La passion du tir et du partage. Nous écrire : <a href="mailto:contact@MonTirSportif.fr">contact@MonTirSportif.fr</a></p>
+<p class="foot-links"><a href="c-est-nouveau.html">C’est nouveau</a> · <a href="plan-du-site.html">Plan du site</a> · <a href="securite.html">Sécurité</a> · <a href="a-propos.html">À propos</a> · <a href="https://pistol.montirsportif.com/" target="_blank" rel="noopener">Site Pistolet</a> · <a href="https://pistol.montirsportif.com/bensport.html" target="_blank" rel="noopener">bensport</a> · <a href="https://www.montirsportif.fr/" target="_blank" rel="noopener">montirsportif.fr</a> · <a href="https://www.montirsportif.com/" target="_blank" rel="noopener">montirsportif.com</a> · <a href="https://entrainement.montirsportif.fr/" target="_blank" rel="noopener">entrainement.montirsportif.fr</a></p>
+<p class="foot-links"><a href="https://www.youtube.com/@montirsportif" target="_blank" rel="noopener">YouTube</a> · <a href="https://www.facebook.com/montirsportif" target="_blank" rel="noopener">Facebook</a> · <a href="https://www.instagram.com/montirsportif/" target="_blank" rel="noopener">Instagram</a> · <a href="https://www.tiktok.com/@montirsportif" target="_blank" rel="noopener">TikTok</a></p>
+<p class="foot-partner">Partenaire principal<br><a href="https://sportquantum.com/" target="_blank" rel="noopener"><img src="img/sportquantum.png" alt="Sport Quantum"></a></p>
+<p style="margin-top:1rem">Ce site est un support pédagogique : il ne remplace pas l'encadrement d'un entraîneur diplômé. (<a href="https://pistol.montirsportif.com/entraineurs.html" target="_blank" rel="noopener">Mon entraîneur</a>)</p>
+</footer>
+<div id="ck" class="ck" role="dialog" aria-live="polite" aria-label="Cookies" hidden>
+<p><b>Cookies de mesure d'audience</b><br>Nous aimerions mesurer la fréquentation du site (Google) pour l'améliorer. Rien n'est déposé sans votre accord. <a href="a-propos.html#cookies">En savoir plus</a></p>
+<div class="ck-act"><button type="button" class="ck-btn ck-sec" id="ck-no">Tout refuser</button><button type="button" class="ck-btn" id="ck-yes">Accepter</button></div>
+</div>
+
+<script>(function(){var b=document.getElementById('ck');function save(v){try{localStorage.setItem('mts-consent',JSON.stringify({v:v,t:Date.now()}));}catch(e){}
+gtag('consent','update',{analytics_storage:v==='yes'?'granted':'denied'});if(v==='yes')window.mtsLoadGTM();b.hidden=true;}
+var c=window.MTS_CONSENT;var valid=c&&((c.v==='yes'&&Date.now()-c.t<3.4e10)||(c.v==='no'&&Date.now()-c.t<1.58e10));if(!valid)b.hidden=false;
+document.getElementById('ck-yes').addEventListener('click',function(){save('yes');});
+document.getElementById('ck-no').addEventListener('click',function(){save('no');});
+document.addEventListener('click',function(e){if(e.target.closest('[data-cookies]')){e.preventDefault();b.hidden=false;document.getElementById('ck-no').focus();}});})();</script>
+<script src="js/share.js"></script>
+<script src="js/nav.js?v=20261124b" defer></script>
+<script>
+(function(){
+var T=[{"n": "1", "nom": "Préparation technique", "c": "#e0601f", "href": "la-position-debout.html", "txt": "Les positions couché, à genou et debout, la visée, le lâcher, la respiration.", "items": [["Le placement des pieds", "la-position-debout.html#pd-pieds"], ["Construire la position debout", "la-position-debout.html#pd-construire"], ["Se photographier pour se corriger", "la-position-debout.html#pd-photo"], ["Pour aller plus loin", "la-position-debout.html#pd-lire"], ["La technique selon Bernard Dropsy", "bernard-dropsy.html#bd-technique"]], "pages": [["Les textes de référence : la technique carabine", "index.html#lectures"]]}, {"n": "2", "nom": "Préparation mentale", "c": "#7656d6", "href": "index.html#lectures", "txt": "Concentration, routine, gestion du stress et des émotions.", "items": [["Les textes de référence", "index.html#lectures"], ["Les vidéos carabine", "index.html#videos"]], "pages": []}, {"n": "3", "nom": "Préparation matérielle", "c": "#12938a", "href": "bernard-dropsy.html#bd-materiel", "txt": "La carabine, les munitions, la tenue et les réglages.", "items": [["Le matériel et les munitions", "bernard-dropsy.html#bd-materiel"], ["Tester et choisir ses munitions", "michel-bury.html#mb-munitions"], ["Balistique, technique et SCATT", "michel-bury.html#mb-documents"]], "pages": []}, {"n": "4", "nom": "Préparation physique", "c": "#3d8f2a", "href": "michel-bury.html#mb-nutrition", "txt": "Condition physique, nutrition et protection du tireur.", "items": [["Condition physique et nutrition", "michel-bury.html#mb-nutrition"], ["Se protéger", "securite.html#s-sante"]], "pages": []}, {"n": "5", "nom": "Préparation tactique", "c": "#8a5f00", "href": "michel-bury.html#mb-competition", "txt": "S’entraîner, préparer une compétition et connaître les épreuves.", "items": [["S’entraîner et préparer une compétition", "michel-bury.html#mb-competition"], ["Les épreuves de la carabine ISSF", "index.html#epreuves"]], "pages": []}];
+var P=document.getElementById('prc-pills'),box=document.getElementById('prc'),cur=0;
+T.forEach(function(t,i){var b=document.createElement('button');b.type='button';b.setAttribute('role','tab');b.style.setProperty('--c',t.c);
+b.innerHTML='<i>'+t.n+'</i>'+(function(w){return w.charAt(0).toUpperCase()+w.slice(1);})(t.nom.replace('Préparation ',''));b.addEventListener('click',function(){show(i);});P.appendChild(b);});
+function show(i){cur=(i+T.length)%T.length;var t=T[cur];box.style.setProperty('--c',t.c);
+[].forEach.call(P.children,function(b,j){b.setAttribute('aria-selected',j===cur?'true':'false');});
+document.getElementById('prc-title').textContent=t.n+'. '+t.nom;
+document.getElementById('prc-txt').textContent=t.txt;
+document.getElementById('prc-pos').textContent='Thème '+(cur+1)+' sur '+T.length;
+document.getElementById('prc-bar').style.width=Math.round((cur+1)/T.length*100)+'%';
+document.getElementById('prc-open').href=t.href;
+var h=t.items.map(function(x){return '<li><a href="'+x[1]+'">'+x[0]+'</a></li>';}).join('');
+h+=t.pages.map(function(x){return '<li><a class="pg" href="'+x[1]+'"><span>'+x[0]+'<small>Page dédiée</small></span></a></li>';}).join('');
+document.getElementById('prc-list').innerHTML=h;
+var b=P.children[cur];P.scrollLeft=b.offsetLeft-P.offsetLeft-16;
+try{sessionStorage.setItem('mts-parcours-carabine',cur);}catch(e){}}
+document.getElementById('prc-prev').addEventListener('click',function(){show(cur-1);});
+document.getElementById('prc-next').addEventListener('click',function(){show(cur+1);});
+var st=0;try{st=+sessionStorage.getItem('mts-parcours-carabine')||0;}catch(e){}
+show(st);
+/* Gestes tactiles : balayer pour changer de thème */
+var x0=null,y0=null;box.addEventListener('touchstart',function(e){x0=e.touches[0].clientX;y0=e.touches[0].clientY;},{passive:true});
+box.addEventListener('touchend',function(e){if(x0===null)return;var dx=e.changedTouches[0].clientX-x0,dy=e.changedTouches[0].clientY-y0;
+if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy)*1.5){show(cur+(dx<0?1:-1));}x0=null;},{passive:true});
+/* Clavier : flèches et touches 1 à 5 quand le parcours est visible */
+function prcVisible(){var r=box.getBoundingClientRect();return r.top<innerHeight*.8&&r.bottom>innerHeight*.2;}
+document.addEventListener('keydown',function(e){var t=e.target;if(t&&(t.tagName==='INPUT'||t.tagName==='TEXTAREA'||t.isContentEditable)||e.ctrlKey||e.metaKey||e.altKey)return;
+if(document.querySelector('.srch.open'))return;if(!prcVisible())return;
+if(e.key==='ArrowRight'){show(cur+1);e.preventDefault();}else if(e.key==='ArrowLeft'){show(cur-1);e.preventDefault();}
+else if(/^[1-5]$/.test(e.key)){show(+e.key-1);e.preventDefault();}});
+/* Détection de l'appareil */
+var coarse=matchMedia('(pointer:coarse)').matches,w=Math.min(screen.width,innerWidth),dev=coarse?(w<700?'tel':'tab'):'ord';
+var el=document.getElementById('dev-'+dev);if(el)el.classList.add('is-here');
+var ico=el?el.querySelector('svg').outerHTML:'';
+var msg={tel:'Vous êtes sur <b>téléphone</b> : utilisez la barre en bas de l’écran et balayez le parcours guidé du doigt.',
+tab:'Vous êtes sur <b>tablette</b> : touchez les tuiles de l’accès direct ou balayez le parcours guidé.',
+ord:'Vous êtes sur <b>ordinateur</b> : dans le parcours guidé, les flèches <b>← →</b> et les touches <b>1 à 5</b> changent de thème.'}[dev];
+var h=document.getElementById('device-hint');h.innerHTML=ico+'<span>'+msg+' <a href="#appareils">Voir toutes les façons de naviguer</a></span>';h.hidden=false;
+document.getElementById('prc-hint').textContent=coarse?'Astuce : balayez vers la gauche ou la droite pour changer de thème.':'Astuce : touches ← → ou 1 à 5 pour changer de thème.';
+/* Version imprimable : tous les thèmes et leurs rubriques */
+document.getElementById('print-all').innerHTML='<h2>Toutes les rubriques, thème par thème</h2>'+T.map(function(t){return '<h3>'+t.n+'. '+t.nom+'</h3><ul>'+t.items.concat(t.pages).map(function(x){return '<li>'+x[0]+'</li>';}).join('')+'</ul>';}).join('');
+/* Sommaire flottant : rubrique en cours */
+var rl=[].slice.call(document.querySelectorAll('.rail a[href^="#"]'));
+addEventListener('scroll',function(){var c=null;rl.forEach(function(a){var t=document.getElementById(a.getAttribute('href').slice(1));if(t&&t.getBoundingClientRect().top<innerHeight*.4)c=a;});rl.forEach(function(a){a.classList.toggle('cur',a===c);});},{passive:true});
+})();
+</script>
+</body>
+</html>

@@ -29,7 +29,8 @@
     'a-propos.html': ['À propos', 'index.html'],
     'christian-alquier.html': ['Christian Alquier', 'a-propos.html'],
     'c-est-nouveau.html': ["C'est nouveau", 'index.html'],
-    'plan-du-site.html': ['Plan du site', 'index.html']
+    'navigation.html': ['Naviguer dans le site', 'index.html'],
+    'plan-du-site.html': ['Plan du site', 'navigation.html']
   };
 
   var css = '' +
@@ -119,6 +120,7 @@
       }
     });
     h('Se repérer');
+    add(rel('navigation.html'), ico('compass') + 'Naviguer dans le site');
     add(rel('c-est-nouveau.html'), ico('star') + "C'est nouveau");
     add(rel('plan-du-site.html'), ico('map') + 'Plan du site');
     h('Aussi chez MonTirSportif');
