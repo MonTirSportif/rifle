@@ -62,7 +62,8 @@
   /* ---------- Fil d'Ariane + bouton Retour vers la page parente ---------- */
   function crumbs() {
     var back = document.querySelector('.back');
-    if (!back || !T[key]) return;
+    var hero = !back && key === 'index.html' ? document.querySelector('.hero > div') : null;
+    if ((!back && !hero) || !T[key]) return;
     var chain = [], k = key, guard = 0;
     while (k && T[k] && guard++ < 8) { chain.unshift(k); k = T[k][1]; }
     var d = document.createElement('div');
@@ -80,6 +81,7 @@
         var a = document.createElement('a'); a.href = rel(c); a.textContent = T[c][0]; d.appendChild(a);
       }
     });
+    if (hero) { hero.insertBefore(d, hero.firstChild); return; }
     back.parentNode.insertBefore(d, back);
     var parent = T[key][1];
     if (parent) { back.href = rel(parent); back.title = 'Retour : ' + T[parent][0]; }
