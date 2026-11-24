@@ -21,6 +21,10 @@
   var T = {
     'index.html': ['Accueil', null],
     'la-position-debout.html': ['La position debout', 'index.html#themes'],
+    'la-position-couche.html': ['La position couché', 'index.html#themes'],
+    'la-position-a-genou.html': ['La position à genou', 'index.html#themes'],
+    'reglage-de-la-carabine.html': ['Le réglage de la carabine', 'index.html#themes'],
+    'questions-frequentes.html': ['Questions fréquentes', 'index.html'],
     'index.html#themes': ['Préparation du tireur', 'index.html'],
     'index.html#lectures': ['Bibliothèque', 'index.html'],
     'bernard-dropsy.html': ['Bernard Dropsy', 'index.html#lectures'],
