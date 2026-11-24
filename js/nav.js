@@ -38,7 +38,8 @@
     '.crumbs a{color:var(--mut,#667);text-decoration:none}.crumbs a:hover{color:var(--acc);text-decoration:underline}' +
     '.crumbs .sep{margin:0 .35rem;opacity:.6}.crumbs [aria-current]{color:var(--txt,#1b2430);font-weight:600}' +
     '.site-sw{display:inline-flex;align-items:stretch;border:1px solid var(--line,#d5dbe3);border-radius:99px;overflow:hidden;vertical-align:middle;background:var(--card,#fff);margin-right:.1rem}' +
-    '.site-sw>*{padding:.1rem .6rem;line-height:1.5}' +
+    '.site-sw>*{padding:.1rem .6rem;line-height:1.5;display:inline-flex;align-items:center;gap:.35rem}' +
+    '.site-sw .sw-ico{width:16px;height:16px;border-radius:50%}.site-sw .on .sw-ico{background:#fff}' +
     '.crumbs .site-sw .on{background:var(--txt,#1b2430);color:#fff;font-weight:600}' +
     '.crumbs .site-sw a{color:var(--mut,#667);text-decoration:none;font-weight:500}.crumbs .site-sw a:hover{color:var(--acc);background:var(--bg2,#f4f6f8);text-decoration:none}' +
     /* fil d'Ariane */
@@ -70,7 +71,7 @@
     d.className = 'crumbs'; d.setAttribute('role', 'navigation'); d.setAttribute('aria-label', "Fil d'Ariane");
     /* site où l'on est + changement de site */
     var sw = document.createElement('span'); sw.className = 'site-sw'; sw.setAttribute('role', 'group'); sw.setAttribute('aria-label', 'Changer de site');
-    sw.innerHTML = '<span class="on" aria-current="true" title="Vous êtes sur le site Carabine">Site Carabine</span><a href="https://pistol.montirsportif.com/" title="Aller sur le site Pistolet">Pistolet</a>';
+    sw.innerHTML = '<span class="on" aria-current="true" title="Vous êtes sur le site Carabine"><img class="sw-ico" src="' + rel('img/picto-carabine-fftir.png') + '" alt="">Site Carabine</span><a href="https://pistol.montirsportif.com/" title="Aller sur le site Pistolet"><img class="sw-ico" src="' + rel('img/picto-pistolet-fftir.png') + '" alt="">Pistolet</a>';
     d.appendChild(sw);
     var s0 = document.createElement('span'); s0.className = 'sep'; s0.textContent = '›'; d.appendChild(s0);
     chain.forEach(function (c, i) {

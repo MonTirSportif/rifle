@@ -421,3 +421,7 @@
 .bs-ref-l{margin:0;font-size:.9rem;line-height:1.5}.bs-ref-l span{color:var(--mut);margin:0 .4rem}
 @media(max-width:520px){.bs-ref{flex-direction:column;align-items:flex-start}}
 @media print{.bs-ref-logo{display:none}}
+
+/* Pictogramme Carabine FFTir */
+.tile-picto{position:absolute;top:.9rem;right:.9rem;width:40px;height:40px}
+.tile:has(.tile-picto) b{padding-right:3rem}
