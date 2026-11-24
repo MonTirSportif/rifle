@@ -26,6 +26,7 @@
     'bernard-dropsy.html': ['Bernard Dropsy', 'index.html#lectures'],
     'michel-bury.html': ['Michel Bury', 'index.html#lectures'],
     'securite.html': ['Sécurité', 'index.html'],
+    'ma-categorie.html': ['Quelle est ma catégorie ?', 'index.html'],
     'a-propos.html': ['À propos', 'index.html'],
     'christian-alquier.html': ['Christian Alquier', 'a-propos.html'],
     'c-est-nouveau.html': ["C'est nouveau", 'index.html'],
