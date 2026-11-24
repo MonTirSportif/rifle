@@ -281,6 +281,8 @@
   .disc12{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:.5rem;margin-top:.8rem}
   .disc12 span{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:.55rem .8rem;font-size:.92rem;box-shadow:0 1px 2px rgba(27,36,48,.05)}
   .disc12 span.on{background:var(--acc);border-color:var(--acc);color:#fff;font-weight:700}
+  .disc12 a{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:.55rem .8rem;font-size:.92rem;box-shadow:0 1px 2px rgba(27,36,48,.05);color:var(--txt);text-decoration:none;font-weight:600}
+  .disc12 a:hover{border-color:var(--acc);color:var(--acc)}
 
   .olymp{display:inline-flex;align-items:center;gap:.3rem;background:#fff4d6;color:#8a5a00;border:1px solid #f0d58a;border-radius:99px;font-size:.78rem;font-weight:700;padding:.15rem .6rem;white-space:nowrap}
   .tile .olymp{align-self:flex-start;margin:.1rem 0 .2rem}
