@@ -153,6 +153,30 @@
     window.addEventListener('scroll', upd, { passive: true }); upd();
   }
 
-  function init() { crumbs(); burger(); totop(); }
+  /* ---------- Sommaires : 3 premières entrées + « Voir plus » ---------- */
+  function sommMore() {
+    if (!document.getElementById('somm-more-css')) {
+      var st = document.createElement('style'); st.id = 'somm-more-css';
+      st.textContent = '.somm li.somm-hide{display:none}.somm.somm-open li.somm-hide{display:list-item}.somm.somm-more:not(.somm-open) ul,.somm.somm-more:not(.somm-open) .somm-cols{columns:auto}' +
+        '.somm-btn{margin:.45rem 0 0;font:inherit;font-size:.82rem;font-weight:600;color:var(--acc);background:none;border:1px solid var(--line,#d5dbe3);border-radius:99px;padding:.25rem .8rem;cursor:pointer}' +
+        '.somm-btn:hover{border-color:var(--acc)}@media print{.somm li.somm-hide{display:list-item!important}.somm-btn{display:none!important}}';
+      document.head.appendChild(st);
+    }
+    Array.prototype.forEach.call(document.querySelectorAll('.somm'), function (s) {
+      if (s.dataset.more) return; s.dataset.more = '1';
+      var items = Array.prototype.filter.call(s.querySelectorAll('li'), function (li) {
+        var p = li.parentElement && li.parentElement.closest('li'); return !(p && s.contains(p));
+      });
+      if (items.length <= 3) return;
+      s.classList.add('somm-more');
+      items.forEach(function (li, i) { if (i >= 3) li.classList.add('somm-hide'); });
+      var b = document.createElement('button'); b.type = 'button'; b.className = 'somm-btn';
+      var n = items.length - 3;
+      var lab = function () { b.textContent = s.classList.contains('somm-open') ? 'Voir moins ▲' : 'Voir plus (' + n + ') ▼'; b.setAttribute('aria-expanded', s.classList.contains('somm-open') ? 'true' : 'false'); };
+      b.addEventListener('click', function () { s.classList.toggle('somm-open'); lab(); });
+      lab(); s.appendChild(b);
+    });
+  }
+  function init() { crumbs(); burger(); totop(); sommMore(); }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 })();
