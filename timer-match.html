@@ -46,6 +46,20 @@
 #tm button.primary{background:#2e7d32;border-color:#2e7d32;color:#fff}
 #tm button.primary.pause{background:#8a5f00;border-color:#8a5f00}
 #tm .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+#tm .player{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:clamp(8px,3vw,22px);background:#1b2430;border-radius:14px;padding:12px 10px 8px;margin-top:-6px}
+#tm .player .pl{display:inline-flex;align-items:center;justify-content:center;padding:0;border:0;border-radius:50%;background:transparent;color:#fff;cursor:pointer;min-height:0;transition:background .15s,transform .1s}
+#tm .player .pl:hover{background:rgba(255,255,255,.14)}
+#tm .player .pl:active{transform:scale(.94)}
+#tm .player .pl:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+#tm .player .pl svg{fill:currentColor;width:58%;height:58%}
+#tm .player .pl-s{width:44px;height:44px;color:#c9d2de}
+#tm .player .pl-m{width:54px;height:54px}
+#tm .player .pl-l{width:74px;height:74px;background:#fff;color:#1b2430;box-shadow:0 4px 14px rgba(0,0,0,.35)}
+#tm .player .pl-l:hover{background:#e8edf3}
+#tm .player .pl-l.pause{background:#f0b429;color:#1b2430}
+#tm .player .pl-l svg{width:52%;height:52%}
+#tm .player .pl-cap{flex-basis:100%;text-align:center;color:#c9d2de;font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;margin-top:-2px}
+#tm .player .pl:disabled{opacity:.35;cursor:default}
 #tm .muted{color:var(--mut);font-size:.9rem}
 #tm .screen{border-radius:14px;padding:18px;background:#1b2430;color:#fff;display:grid;grid-template-columns:auto minmax(0,1fr);gap:18px;align-items:center}
 @media (max-width:640px){#tm .screen{grid-template-columns:minmax(0,1fr);justify-items:center;text-align:center}}
@@ -90,15 +104,13 @@ html.tm-focus #tm .lamp{width:clamp(70px,24vmin,260px)}
 html.tm-focus #tm .cmd{font-size:clamp(1.6rem,min(7vw,9vh),5.5rem)}
 html.tm-focus #tm .clock{font-size:clamp(3.2rem,min(19vw,26vh),13rem)}
 html.tm-focus #tm .phase,html.tm-focus #tm .next{font-size:clamp(.95rem,2.2vw,1.4rem)}
-html.tm-focus #tm .row{justify-content:center}
-html.tm-focus #tm .row button{min-height:58px;font-size:1.05rem;background:#1b2430;color:#fff;border-color:#3a4452}
-html.tm-focus #tm .row button.primary{background:#2e7d32;border-color:#2e7d32}
-html.tm-focus #tm .row button.primary.pause{background:#8a5f00;border-color:#8a5f00}
-html.tm-focus #tm #tmFull{background:#fff;color:#1b2430}
+html.tm-focus #tm .player{margin-top:0}
+@media (min-width:481px){html.tm-focus #tm .player .pl-l{width:84px;height:84px}html.tm-focus #tm .player .pl-m{width:60px;height:60px}}
+@media (max-width:480px){#tm .player{gap:6px;padding:10px 6px 6px}#tm .player .pl-s{width:40px;height:40px}#tm .player .pl-m{width:48px;height:48px}#tm .player .pl-l{width:66px;height:66px}}
 html.tm-focus #tm .info .kpi{background:#1b2430;color:#fff}
 html.tm-focus #tm .info .kpi span{color:#c9d2de}
-@media (max-width:640px) and (orientation:portrait){html.tm-focus #tm .screen{grid-template-columns:minmax(0,1fr)}html.tm-focus #tm .row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}html.tm-focus #tm .row button{padding:6px 4px;font-size:.9rem;min-height:54px}}
-@media (max-height:520px){html.tm-focus #tm .info,html.tm-focus #tm .phase{display:none!important}html.tm-focus #tm .row{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px}html.tm-focus #tm .row button{padding:4px;font-size:.85rem;min-height:46px}html.tm-focus #tm .screen{padding:10px 14px}}
+@media (max-width:640px) and (orientation:portrait){html.tm-focus #tm .screen{grid-template-columns:minmax(0,1fr)}}
+@media (max-height:520px){html.tm-focus #tm .info,html.tm-focus #tm .phase{display:none!important}html.tm-focus #tm .player{padding:6px}html.tm-focus #tm .player .pl-cap{display:none}html.tm-focus #tm .player .pl-l{width:64px;height:64px}html.tm-focus #tm .player .pl-m{width:50px;height:50px}html.tm-focus #tm .screen{padding:10px 14px}}
 html.mts-big #tm .steps li{font-size:1rem}
 html.mts-big #tm .phase{font-size:1rem}
 html.mts-big #tm .next{font-size:1.1rem}
@@ -138,6 +150,8 @@ html.mts-big #tm .next{font-size:1.1rem}
         <label class="chk"><input type="checkbox" id="tmBip" checked> Bip au début et à la fin du tir</label>
         <label for="tmVol">Volume sonore <b id="tmVolV">100 %</b>
           <input type="range" id="tmVol" min="0" max="100" step="5" value="100" style="width:100%;accent-color:var(--acc)"></label>
+        <label for="tmVx">Voix
+          <select id="tmVx"><option value="">Voix française par défaut</option></select></label>
       </div>
     </div>
     <p class="muted" id="tmSum"></p>
@@ -154,13 +168,14 @@ html.mts-big #tm .next{font-size:1.1rem}
     </div>
   </div>
 
-  <div class="row">
-    <button type="button" class="primary" id="tmGo">▶ Démarrer</button>
-    <button type="button" id="tmPrev">⏮ Étape précédente</button>
-    <button type="button" id="tmSkip">Étape suivante ⏭</button>
-    <button type="button" id="tmReset">↺ Recommencer</button>
-    <button type="button" id="tmFull">⛶ Plein écran</button>
-    <button type="button" id="tmSay" title="Répéter le dernier commandement">🔊 Répéter</button>
+  <div class="player" role="group" aria-label="Commandes du timer">
+    <button type="button" class="pl pl-s" id="tmReset" aria-label="Recommencer" title="Recommencer"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5V2L7 6l5 4V7a5 5 0 1 1-5 5H5a7 7 0 1 0 7-7z"/></svg></button>
+    <button type="button" class="pl pl-m" id="tmPrev" aria-label="Étape précédente" title="Étape précédente"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6h2v12H6zM9.5 12 18 18V6z"/></svg></button>
+    <button type="button" class="pl pl-l" id="tmGo" aria-label="Démarrer" title="Démarrer (barre d’espace)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></button>
+    <button type="button" class="pl pl-m" id="tmSkip" aria-label="Étape suivante" title="Étape suivante"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 6h2v12h-2zM6 18l8.5-6L6 6z"/></svg></button>
+    <button type="button" class="pl pl-s" id="tmSay" aria-label="Répéter le commandement" title="Répéter le commandement"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4zM14 3.2v2.1a7 7 0 0 1 0 13.4v2.1a9 9 0 0 0 0-17.6z"/></svg></button>
+    <button type="button" class="pl pl-s" id="tmFull" aria-label="Plein écran" title="Plein écran"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg></button>
+    <div class="pl-cap" id="tmCap" aria-hidden="true">Démarrer</div>
   </div>
 
   <div class="info">
@@ -180,9 +195,11 @@ html.mts-big #tm .next{font-size:1.1rem}
     <ol class="seq">
       <li><b>Choisissez la discipline</b> et le type de cibles : sur cibles papier, le match dure plus longtemps.</li>
       <li><b>Installation</b> : le match commence par « ATHLÈTES… À VOS POSTES », comme au stand : 10 minutes pour sortir la carabine, s'installer, faire des tirs à sec et des visées. « Étape suivante » permet d'écourter.</li>
+      <li><b>Choisissez la voix</b> parmi celles de votre téléphone ou de votre ordinateur : la liste dépend de l’appareil. Chaque choix fait entendre un exemple. Des voix supplémentaires s’installent dans les réglages de l’appareil (Accessibilité › Contenu énoncé sur iPhone, Synthèse vocale sur Android).</li>
       <li><b>Réglez le volume</b>, puis posez le téléphone près de vous. L'écran reste allumé pendant le match (si votre navigateur le permet).</li>
       <li><b>Démarrez</b> : chaque commandement s'affiche en grand et il est dit à voix haute : préparation et essais, « 30 SECONDES », « STOP », « TIRS DE MATCH… TIREZ », puis les annonces à 10 et 5 minutes de la fin.</li>
       <li>En 3 positions, l'ordre est imposé : genou, couché, debout. Vous repassez vous-même votre cible en essais entre deux positions : les essais sont illimités, mais compris dans le temps du match.</li>
+      <li><b>Les commandes</b>, comme sur un lecteur vidéo : ▶ démarrer et ⏸ pause (ou la barre d’espace), ⏮ étape précédente, ⏭ étape suivante, ↺ recommencer, 🔊 répéter le commandement, ⛶ plein écran.</li>
       <li><b>Plein écran</b> : seuls la lampe, le commandement, le compte à rebours et les boutons restent, en très grand. Sur iPhone, le menu du navigateur reste visible : tournez le téléphone en paysage. « Quitter le plein écran » pour revenir.</li>
       <li>Les boutons « Étape précédente » et « Étape suivante » permettent de reprendre ou de sauter une phase. Le mode « Découverte (× 10) » déroule le match dix fois plus vite.</li>
     </ol>
@@ -318,17 +335,29 @@ function syncForm(){$('tmD').value=cfg.d;fillParts();$('tmC').value=cfg.c;$('tmB
 
 /* ---------- Voix et bips ---------- */
 var voice=null;
-function pickVoice(){if(!('speechSynthesis' in window))return;var v=speechSynthesis.getVoices().filter(function(x){return /^fr/i.test(x.lang)});
-  voice=v.filter(function(x){return /fr[-_]FR/i.test(x.lang)})[0]||v[0]||null;}
-if('speechSynthesis' in window){pickVoice();speechSynthesis.onvoiceschanged=pickVoice;}
+/* Les voix disponibles dépendent du téléphone ou de l'ordinateur : les voix françaises d'abord, puis les autres */
+function pickVoice(){if(!('speechSynthesis' in window))return;var all=speechSynthesis.getVoices(),v=all.filter(function(x){return /^fr/i.test(x.lang)});
+  voice=(cfg.vx&&all.filter(function(x){return x.voiceURI===cfg.vx})[0])||v.filter(function(x){return /fr[-_]FR/i.test(x.lang)})[0]||v[0]||null;fillVoices(all);}
+function fillVoices(all){var sel=$('tmVx');if(!sel)return;var fr=all.filter(function(x){return /^fr/i.test(x.lang)}),ot=all.filter(function(x){return !/^fr/i.test(x.lang)});
+  var reg={'fr-FR':'France','fr-CA':'Canada','fr-BE':'Belgique','fr-CH':'Suisse'};
+  function opt(x){return '<option value="'+x.voiceURI.replace(/"/g,'&quot;')+'">'+x.name.replace(/</g,'&lt;')+' · '+(reg[x.lang.replace('_','-')]||x.lang)+(x.localService===false?' (en ligne)':'')+'</option>'}
+  var h='<option value="">Voix française par défaut</option>';
+  if(fr.length)h+='<optgroup label="Voix françaises ('+fr.length+')">'+fr.map(opt).join('')+'</optgroup>';
+  if(ot.length)h+='<optgroup label="Autres langues (accent étranger)">'+ot.map(opt).join('')+'</optgroup>';
+  if(!all.length)h='<option value="">Aucune voix disponible sur cet appareil</option>';
+  sel.innerHTML=h;sel.value=cfg.vx&&all.some(function(x){return x.voiceURI===cfg.vx})?cfg.vx:'';sel.disabled=!all.length;}
+if('speechSynthesis' in window){setTimeout(pickVoice,0);speechSynthesis.onvoiceschanged=pickVoice;}
 var lastSaid='';
 function say(t){if(!t)return;lastSaid=t;if(!cfg.voice||!('speechSynthesis' in window))return;
-  try{var u=new SpeechSynthesisUtterance(t);u.lang='fr-FR';if(voice)u.voice=voice;u.rate=0.95;u.volume=Math.max(0,Math.min(1,cfg.vol/100));speechSynthesis.speak(u)}catch(e){}}
+  try{var u=new SpeechSynthesisUtterance(t);u.lang=voice?voice.lang:'fr-FR';if(voice)u.voice=voice;u.rate=0.95;u.volume=Math.max(0,Math.min(1,cfg.vol/100));speechSynthesis.speak(u)}catch(e){}}
 var ac=null;
 function beep(f,dur){if(!cfg.bip)return;try{ac=ac||new (window.AudioContext||window.webkitAudioContext)();var o=ac.createOscillator(),g=ac.createGain(),t=ac.currentTime;
   o.frequency.value=f;o.type='square';g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(Math.max(.0002,.35*cfg.vol/100),t+.01);g.gain.exponentialRampToValueAtTime(.0001,t+dur);o.connect(g);g.connect(ac.destination);o.start(t);o.stop(t+dur+.02)}catch(e){}}
 
 /* ---------- Moteur ---------- */
+var IC={play:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>',pause:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>',fs:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>',fsx:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z"/></svg>'};
+function setGo(st){var b=$('tmGo'),lab=st==='pause'?'Pause':(st==='resume'?'Reprendre':'Démarrer');b.innerHTML=st==='pause'?IC.pause:IC.play;b.classList.toggle('pause',st==='pause');b.setAttribute('aria-label',lab);b.title=lab+' (barre d’espace)';$('tmCap').textContent=st==='pause'?'En cours':(st==='resume'?'En pause':'Démarrer');}
+
 var steps=[],cur=-1,run=false,t0=0,acc=0,fired={},tick=null,wake=null;
 function speed(){return +cfg.s||1}
 function elapsed(){return acc+(run?(performance.now()-t0)/1000*speed():0)}
@@ -344,7 +373,7 @@ function enter(i,silent,carry){
   if(s.end){finish(true);}
 }
 function finish(atEnd){run=false;clearInterval(tick);tick=null;releaseWake();
-  $('tmGo').textContent='▶ Démarrer';$('tmGo').classList.remove('pause');
+  setGo('start');
   if(atEnd){$('tmClock').textContent='00:00';$('tmBar').style.width='100%';$('tmNext').textContent='Match terminé.';}
 }
 function loop(){if(!run)return;var s=steps[cur];if(!s)return;var e=elapsed();
@@ -375,13 +404,13 @@ document.addEventListener('visibilitychange',function(){if(document.visibilitySt
 function start(){try{ac=ac||new (window.AudioContext||window.webkitAudioContext)();if(ac.state==='suspended')ac.resume()}catch(e){}
   if(cur<0||cur>=steps.length||(steps[cur]&&steps[cur].end)){cur=-1;run=true;t0=performance.now();acc=0;enter(0)}
   else{run=true;t0=performance.now();say('Reprise.');}
-  $('tmGo').textContent='⏸ Pause';$('tmGo').classList.add('pause');
+  setGo('pause');
   clearInterval(tick);tick=setInterval(loop,40);wakeOn();}
 function pauseIt(){acc=elapsed();run=false;clearInterval(tick);tick=null;releaseWake();if('speechSynthesis' in window)speechSynthesis.cancel();
-  $('tmGo').textContent='▶ Reprendre';$('tmGo').classList.remove('pause');$('tmNext').textContent='En pause.';}
+  setGo('resume');$('tmNext').textContent='En pause.';}
 function reset(){run=false;clearInterval(tick);tick=null;releaseWake();if('speechSynthesis' in window)speechSynthesis.cancel();
   steps=build();cur=-1;acc=0;
-  $('tmGo').textContent='▶ Démarrer';$('tmGo').classList.remove('pause');
+  setGo('start');
   $('tmPhase').textContent=D[cfg.d].n;$('tmCmd').textContent='Appuyez sur « Démarrer »';$('tmClock').textContent=fmt(total(0));
   $('tmLamp').className='lamp';$('tmLamp').textContent='';$('tmBar').style.width='0';$('tmNext').textContent='Premier commandement : '+steps[0].c;
   $('tmLeft').textContent=fmt(total(0));$('tmStep').textContent='— / '+steps.length;$('tmEnd').textContent='—';
@@ -391,17 +420,18 @@ function reset(){run=false;clearInterval(tick);tick=null;releaseWake();if('speec
 $('tmGo').addEventListener('click',function(){run?pauseIt():start()});
 $('tmSkip').addEventListener('click',function(){if(cur<0){start();return}if(cur<steps.length-1){if('speechSynthesis' in window)speechSynthesis.cancel();enter(cur+1);if(!run){acc=0}}});
 $('tmPrev').addEventListener('click',function(){if(cur<=0)return;if('speechSynthesis' in window)speechSynthesis.cancel();enter(cur-1,false);if(!run)acc=0});
+$('tmVx').addEventListener('change',function(){cfg.vx=this.value;set('mts-timer-match',cfg);pickVoice();if('speechSynthesis' in window)speechSynthesis.cancel();var v=cfg.voice;cfg.voice=true;say('Attention. Tirs de match. Tirez.');cfg.voice=v});
 $('tmVol').addEventListener('input',function(){cfg.vol=+this.value;$('tmVolV').textContent=cfg.vol+' %';set('mts-timer-match',cfg)});
 $('tmVol').addEventListener('change',function(){beep(660,.15);var v=cfg.voice;cfg.voice=true;say('Volume '+cfg.vol+' pour cent');cfg.voice=v});
 $('tmReset').addEventListener('click',function(){if(run&&!confirm('Arrêter le match et revenir au début ?'))return;reset()});
 $('tmSay').addEventListener('click',function(){var t=lastSaid;if(cur>=0&&steps[cur]&&steps[cur].v)t=steps[cur].v;var v=cfg.voice;cfg.voice=true;say(t);cfg.voice=v});
 $('tmList').addEventListener('click',function(e){var li=e.target.closest('li');if(!li)return;var i=+li.dataset.i;if('speechSynthesis' in window)speechSynthesis.cancel();
-  if(cur<0&&!run){run=true;$('tmGo').textContent='⏸ Pause';$('tmGo').classList.add('pause');clearInterval(tick);tick=setInterval(loop,40);wakeOn();}
+  if(cur<0&&!run){run=true;setGo('pause');clearInterval(tick);tick=setInterval(loop,40);wakeOn();}
   enter(i,!run);});
 /* Plein écran : mode « écran de match » + plein écran réel quand le navigateur le permet (pas sur iPhone) */
 var focusOn=false,realFs=false;
 function setFocus(on){focusOn=on;document.documentElement.classList.toggle('tm-focus',on);
-  $('tmFull').textContent=on?'✕ Quitter le plein écran':'⛶ Plein écran';$('tmFull').setAttribute('aria-pressed',on?'true':'false');
+  $('tmFull').innerHTML=on?IC.fsx:IC.fs;$('tmFull').setAttribute('aria-label',on?'Quitter le plein écran':'Plein écran');$('tmFull').title=on?'Quitter le plein écran':'Plein écran';$('tmFull').setAttribute('aria-pressed',on?'true':'false');
   var de=document.documentElement,req=de.requestFullscreen||de.webkitRequestFullscreen,ex=document.exitFullscreen||document.webkitExitFullscreen;
   try{if(on&&req&&!(document.fullscreenElement||document.webkitFullscreenElement)){var r=req.call(de);realFs=true;if(r&&r.catch)r.catch(function(){realFs=false})}
       else if(!on&&(document.fullscreenElement||document.webkitFullscreenElement)&&ex){ex.call(document)}}catch(e){realFs=false}
