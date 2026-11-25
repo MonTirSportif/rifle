@@ -38,6 +38,7 @@
     'christian-alquier.html': ['Christian Alquier', 'a-propos.html'],
     'c-est-nouveau.html': ["C'est nouveau", 'index.html'],
     'annonce.html': ['Mon annonce', 'index.html'],
+    'timer-match.html': ['Timer match', 'index.html'],
     'navigation.html': ['Naviguer dans le site', 'index.html'],
     'plan-du-site.html': ['Plan du site', 'navigation.html']
   };
