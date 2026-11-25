@@ -122,7 +122,7 @@ html.mts-big #tm .next{font-size:1.1rem}
           <option value="e">Électroniques</option>
           <option value="p">Papier (temps plus long)</option>
         </select></label>
-      <label for="tmB" hidden>Pause entre les séries (25 m)
+      <label for="tmB" hidden>Pause entre les séries
         <select id="tmB">
           <option value="60">1 minute (minimum du règlement)</option>
           <option value="120">2 minutes</option>
@@ -232,6 +232,8 @@ var D={
   pc:{n:'Pistolet percussion centrale 25 m',kind:'p25',parts:[['all','Match complet (précision puis vitesse)'],['prec','Passe précision (30 coups)'],['rap','Passe vitesse 3/7 (30 coups)']]},
   vo:{n:'Pistolet vitesse olympique 25 m',kind:'vo',parts:[['all','Match complet (2 passes de 30 coups)'],['one','Une passe (30 coups)']]},
   std:{n:'Pistolet standard 25 m',kind:'std',parts:[['all','Match complet (60 coups)']]},
+  s10:{n:'Pistolet standard 10 m · 5 coups',kind:'p5',parts:[['8','8 séries de 5 coups (40 coups)'],['6','6 séries de 5 coups (30 coups, dames ISSF)']]},
+  v10:{n:'Pistolet vitesse 10 m · 5 cibles',kind:'p5',parts:[['8','8 séries de 5 coups (40 coups)'],['6','6 séries de 5 coups (30 coups, dames ISSF)']]},
   c10:{n:'Carabine 10 m · 60 coups',kind:'prec',e:75,p:90},
   c10j:{n:'Carabine 10 m · 40 coups',kind:'prec',e:50,p:60,shots:40},
   c3p:{n:'Carabine 50 m 3 positions · 3 × 20 coups',kind:'prec',e:90,p:120,sub:'Genou, puis couché, puis debout'},
@@ -277,6 +279,17 @@ function voPass(L,n,br,lastOfMatch){var ph='Passe '+n;
   [8,8,6,6,4,4].forEach(function(s,i){serie(L,ph+' · série '+(i+1)+'/6','SÉRIE EN '+s+' SECONDES… CHARGEZ','Série en '+s+' secondes. Chargez.',[tir(s,'5 coups en '+s+' secondes')],br,i===5&&lastOfMatch);
     if(i===5&&!lastOfMatch)L.push({ph:ph,c:'FIN DE LA PREMIÈRE PASSE',v:'Fin de la première passe.',d:null,s:'« Étape suivante » pour commencer la deuxième passe',pause:1});});
 }
+/* Pistolet 10 m « 5 coups » (standard et vitesse) : mémento 10 m FFTir et règlement ISSF 5 coups */
+function p5Steps(br,n,vit){var L=[];install(L,6);
+  L.push({ph:'Préparation',c:'DÉBUT DE PRÉPARATION',v:'Début de préparation.',d:180,s:vit?'3 minutes · tirs de réglage autorisés':'3 minutes · tirs de réglage interdits'});
+  L.push({ph:'Préparation',c:'STOP',v:'Stop.',d:60,s:'Fin de la préparation'});
+  for(var i=0;i<=n;i++){var ph=i?'Série '+i+'/'+n:'Série d’essai',last=i===n;
+    L.push({ph:ph,c:i?'CHARGEZ':'SÉRIE D’ESSAIS… CHARGEZ',v:i?'Chargez.':'Série d’essais. Chargez.',d:60,s:'1 minute de préparation'});
+    L.push({ph:ph,c:'ATTENTION',v:'Attention.',d:7,lamp:'red',s:vit?'Lampe rouge · cibles bloquées':'Lampe rouge · cible effacée'});
+    L.push({ph:ph,c:'TIR',v:'',d:10,lamp:'green',beep:1,s:'5 coups en 10 secondes'});
+    if(last)L.push({ph:'Fin du match',c:'STOP… DÉCHARGEZ',v:'Stop. Déchargez.',d:20});
+    else L.push({ph:ph,c:'STOP',v:'Stop.',d:br||null,s:br?(vit?'Comptage des cibles abattues':'Comptage de la série'):'Notez vos points, puis « Étape suivante »',pause:1});}
+  return L;}
 function stdSteps(br){var L=[],ph='Standard';install(L,4);
   prep(L,ph);
   serie(L,ph+' · essai','SÉRIE D’ESSAI EN 150 SECONDES… CHARGEZ','Série d’essai en 150 secondes. Chargez.',[tir(150,'5 coups en 150 secondes')],br);
@@ -287,6 +300,7 @@ function build(){var d=D[cfg.d],br=+cfg.b||0,L=[];
   if(d.kind==='prec'){L=precSteps(cfg.c==='p'?d.p:d.e,d);}
   else if(d.kind==='p25'){install(L,7);if(cfg.p==='all'){p25Pass(L,'prec',br,false);p25Pass(L,'rap',br,true)}else p25Pass(L,cfg.p==='prec'?'prec':'rap',br,true)}
   else if(d.kind==='vo'){install(L,6);if(cfg.p==='all'){voPass(L,1,br,false);voPass(L,2,br,true)}else voPass(L,'',br,true)}
+  else if(d.kind==='p5')L=p5Steps(br,+cfg.p||8,cfg.d==='v10');
   else L=stdSteps(br);
   if(d.kind!=='prec')L.push({ph:'Fin du match',c:'VÉRIFIEZ ET RANGEZ VOS ARMES',v:'Fin du match. Vérifiez et rangez vos armes.',d:0,end:1});
   /* les étapes de tir héritent de la phase précédente */
@@ -294,10 +308,10 @@ function build(){var d=D[cfg.d],br=+cfg.b||0,L=[];
   return L;}
 
 /* ---------- Réglages ---------- */
-var cfg=get('mts-timer-match',{d:'c10',p:'all',c:'e',b:'60',s:'1',voice:true,bip:true});if(cfg.vol==null)cfg.vol=100;if(!D[cfg.d]||!$('tmD').querySelector('option[value="'+cfg.d+'"]'))cfg.d=$('tmD').options[0].value;
+var cfg=get('mts-timer-match',{d:'c10',p:'all',c:'e',b:'60',s:'1',voice:true,bip:true});if(cfg.vol==null)cfg.vol=100;try{var qd=new URLSearchParams(location.search).get('d');if(qd&&D[qd]&&$('tmD').querySelector('option[value="'+qd+'"]'))cfg.d=qd}catch(e){}if(!D[cfg.d]||!$('tmD').querySelector('option[value="'+cfg.d+'"]'))cfg.d=$('tmD').options[0].value;
 function fillParts(){var d=D[cfg.d],sel=$('tmP');sel.innerHTML='';
   (d.parts||[['all','Match complet']]).forEach(function(o){var e=document.createElement('option');e.value=o[0];e.textContent=o[1];sel.appendChild(e)});
-  if(!(d.parts||[['all']]).some(function(o){return o[0]===cfg.p}))cfg.p='all';sel.value=cfg.p;sel.disabled=!d.parts||d.parts.length<2;
+  if(!(d.parts||[['all']]).some(function(o){return o[0]===cfg.p}))cfg.p=(d.parts||[['all']])[0][0];sel.value=cfg.p;sel.disabled=!d.parts||d.parts.length<2;
   $('tmC').disabled=d.kind!=='prec';$('tmB').disabled=d.kind==='prec';
   $('tmC').parentNode.style.opacity=d.kind==='prec'?1:.5;$('tmB').parentNode.style.opacity=d.kind==='prec'?.5:1;}
 function syncForm(){$('tmD').value=cfg.d;fillParts();$('tmC').value=cfg.c;$('tmB').value=cfg.b;$('tmS').value=cfg.s;$('tmV').checked=cfg.voice;$('tmBip').checked=cfg.bip;$('tmVol').value=cfg.vol;$('tmVolV').textContent=cfg.vol+' %'}
