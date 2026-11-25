@@ -77,8 +77,28 @@
 #tm table{width:100%;border-collapse:collapse;font-size:.9rem}
 #tm th,#tm td{padding:6px 8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
 #tm .tblw{overflow-x:auto}
-#timer-match:fullscreen{background:var(--bg);overflow:auto;padding:12px}
-#timer-match:fullscreen .theme-head,#timer-match:fullscreen #tm-help{display:none}
+/* Écran de match : seul le panneau et les boutons restent (plein écran réel si le navigateur le permet, sinon iPhone) */
+html.tm-focus,html.tm-focus body{background:#0f151d}
+html.tm-focus body>*:not(main){display:none!important}
+html.tm-focus #timer-match{padding:0;margin:0;max-width:none}
+html.tm-focus #timer-match>*:not(#tm-seance){display:none!important}
+html.tm-focus #tm-seance{max-width:none;margin:0;padding:max(10px,env(safe-area-inset-top)) max(10px,env(safe-area-inset-right)) max(10px,env(safe-area-inset-bottom)) max(10px,env(safe-area-inset-left));border:0}
+html.tm-focus #tm>.card{display:none!important}
+html.tm-focus #tm-seance #tm{min-height:calc(100svh - 20px);gap:8px}
+html.tm-focus #tm .screen{flex:1 1 auto;min-height:0;grid-template-columns:auto minmax(0,1fr);border-radius:12px;padding:14px}
+html.tm-focus #tm .lamp{width:clamp(70px,24vmin,260px)}
+html.tm-focus #tm .cmd{font-size:clamp(1.6rem,min(7vw,9vh),5.5rem)}
+html.tm-focus #tm .clock{font-size:clamp(3.2rem,min(19vw,26vh),13rem)}
+html.tm-focus #tm .phase,html.tm-focus #tm .next{font-size:clamp(.95rem,2.2vw,1.4rem)}
+html.tm-focus #tm .row{justify-content:center}
+html.tm-focus #tm .row button{min-height:58px;font-size:1.05rem;background:#1b2430;color:#fff;border-color:#3a4452}
+html.tm-focus #tm .row button.primary{background:#2e7d32;border-color:#2e7d32}
+html.tm-focus #tm .row button.primary.pause{background:#8a5f00;border-color:#8a5f00}
+html.tm-focus #tm #tmFull{background:#fff;color:#1b2430}
+html.tm-focus #tm .info .kpi{background:#1b2430;color:#fff}
+html.tm-focus #tm .info .kpi span{color:#c9d2de}
+@media (max-width:640px) and (orientation:portrait){html.tm-focus #tm .screen{grid-template-columns:minmax(0,1fr)}html.tm-focus #tm .row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}html.tm-focus #tm .row button{padding:6px 4px;font-size:.9rem;min-height:54px}}
+@media (max-height:520px){html.tm-focus #tm .info,html.tm-focus #tm .phase{display:none!important}html.tm-focus #tm .row{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px}html.tm-focus #tm .row button{padding:4px;font-size:.85rem;min-height:46px}html.tm-focus #tm .screen{padding:10px 14px}}
 html.mts-big #tm .steps li{font-size:1rem}
 html.mts-big #tm .phase{font-size:1rem}
 html.mts-big #tm .next{font-size:1.1rem}
@@ -163,6 +183,7 @@ html.mts-big #tm .next{font-size:1.1rem}
       <li><b>Réglez le volume</b>, puis posez le téléphone près de vous. L'écran reste allumé pendant le match (si votre navigateur le permet).</li>
       <li><b>Démarrez</b> : chaque commandement s'affiche en grand et il est dit à voix haute : préparation et essais, « 30 SECONDES », « STOP », « TIRS DE MATCH… TIREZ », puis les annonces à 10 et 5 minutes de la fin.</li>
       <li>En 3 positions, l'ordre est imposé : genou, couché, debout. Vous repassez vous-même votre cible en essais entre deux positions : les essais sont illimités, mais compris dans le temps du match.</li>
+      <li><b>Plein écran</b> : seuls la lampe, le commandement, le compte à rebours et les boutons restent, en très grand. Sur iPhone, le menu du navigateur reste visible : tournez le téléphone en paysage. « Quitter le plein écran » pour revenir.</li>
       <li>Les boutons « Étape précédente » et « Étape suivante » permettent de reprendre ou de sauter une phase. Le mode « Découverte (× 10) » déroule le match dix fois plus vite.</li>
     </ol>
     <div class="tblw"><table>
@@ -363,7 +384,17 @@ $('tmSay').addEventListener('click',function(){var t=lastSaid;if(cur>=0&&steps[c
 $('tmList').addEventListener('click',function(e){var li=e.target.closest('li');if(!li)return;var i=+li.dataset.i;if('speechSynthesis' in window)speechSynthesis.cancel();
   if(cur<0&&!run){run=true;$('tmGo').textContent='⏸ Pause';$('tmGo').classList.add('pause');clearInterval(tick);tick=setInterval(loop,40);wakeOn();}
   enter(i,!run);});
-$('tmFull').addEventListener('click',function(){var m=$('timer-match');try{if(document.fullscreenElement)document.exitFullscreen();else if(m.requestFullscreen)m.requestFullscreen()}catch(e){}});
+/* Plein écran : mode « écran de match » + plein écran réel quand le navigateur le permet (pas sur iPhone) */
+var focusOn=false,realFs=false;
+function setFocus(on){focusOn=on;document.documentElement.classList.toggle('tm-focus',on);
+  $('tmFull').textContent=on?'✕ Quitter le plein écran':'⛶ Plein écran';$('tmFull').setAttribute('aria-pressed',on?'true':'false');
+  var de=document.documentElement,req=de.requestFullscreen||de.webkitRequestFullscreen,ex=document.exitFullscreen||document.webkitExitFullscreen;
+  try{if(on&&req&&!(document.fullscreenElement||document.webkitFullscreenElement)){var r=req.call(de);realFs=true;if(r&&r.catch)r.catch(function(){realFs=false})}
+      else if(!on&&(document.fullscreenElement||document.webkitFullscreenElement)&&ex){ex.call(document)}}catch(e){realFs=false}
+  window.scrollTo(0,0);if(on)wakeOn();}
+$('tmFull').addEventListener('click',function(){setFocus(!focusOn)});
+['fullscreenchange','webkitfullscreenchange'].forEach(function(ev){document.addEventListener(ev,function(){if(!(document.fullscreenElement||document.webkitFullscreenElement)&&focusOn&&realFs){realFs=false;setFocus(false)}})});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'&&focusOn)setFocus(false)});
 function change(){var nd=$('tmD').value;if(nd!==cfg.d){cfg.d=nd;fillParts()}else cfg.p=$('tmP').value;cfg.c=$('tmC').value;cfg.b=$('tmB').value;cfg.s=$('tmS').value;cfg.voice=$('tmV').checked;cfg.bip=$('tmBip').checked;set('mts-timer-match',cfg)}
 ['tmD','tmP','tmC','tmB'].forEach(function(id){$(id).addEventListener('change',function(){if(run&&!confirm('Changer ce réglage arrête le match en cours. Continuer ?')){syncForm();return}change();reset()})});
 ['tmS','tmV','tmBip'].forEach(function(id){$(id).addEventListener('change',function(){if(id==='tmS'&&run){acc=elapsed();t0=performance.now()}change()})});
