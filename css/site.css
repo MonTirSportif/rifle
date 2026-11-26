@@ -425,3 +425,11 @@
 /* Pictogramme Carabine FFTir */
 .tile-picto{position:absolute;top:.9rem;right:.9rem;width:40px;height:40px}
 .tile:has(.tile-picto) b{padding-right:3rem}
+/* Lien « Ma feuille de match » sous les tuiles de discipline */
+.tile-wrap{position:relative;display:flex;min-width:0}
+.tile-wrap>.tile{flex:1;padding-bottom:3.4rem}
+.tile-fm{position:absolute;left:1.1rem;bottom:1rem;display:inline-flex;align-items:center;gap:.4rem;font-size:.85rem;font-weight:600;color:var(--t,#2c6fb7);text-decoration:none;background:var(--bg2);border:1px solid var(--line);border-radius:99px;padding:.3rem .75rem;z-index:1}
+.tile-fm:hover{border-color:currentColor}
+.tile-fm svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
+
+.tiles .olymp{white-space:normal;max-width:100%}
