@@ -137,6 +137,7 @@
     h('Aussi chez MonTirSportif');
     var rp = add('https://pistol.montirsportif.com/', 'Le site Pistolet ↗'); rp.target = '_blank'; rp.rel = 'noopener';
     var rh = add('https://handy.montirsportif.com/', 'Le site Handy ↗'); rh.target = '_blank'; rh.rel = 'noopener';
+    var rc = add('https://club.montirsportif.com/', 'Le site Club ↗'); rc.target = '_blank'; rc.rel = 'noopener';
     document.body.appendChild(m);
 
     function place() { var r = document.querySelector('header').getBoundingClientRect(); m.style.top = Math.max(0, r.bottom) + 'px'; }
@@ -251,6 +252,7 @@
     ['sq', 'SQ', 'Cible électronique Sport Quantum', 'picto-sq.png'],
     ['tar', 'TAR', 'Tir aux armes réglementaires', 'picto-tar-fftir.png'],
     ['handy', 'Handy', 'Handi-tir et para-tir', 'picto-handy.png'],
+    ['club', 'Club', 'La vie du club', 'picto-club.png'],
     ['thot', 'Thot', 'Le dieu égyptien de l’écriture', 'picto-thot.png']
   ];
   if (!document.getElementById('mts-sitesw-css')) {
@@ -277,7 +279,7 @@
     for (var i = 0; i < S.length; i++) if (S[i][0] === h) return S[i][0];
     var t = (sw.querySelector('.on') || sw).textContent || '';
     for (var j = 0; j < S.length; j++) if (t.indexOf(S[j][1]) >= 0) return S[j][0];
-    var m = location.pathname.match(/\/(pistol|rifle|edt|sq|thot|tar|handy)\//); return m ? m[1] : 'pistol';
+    var m = location.pathname.match(/\/(pistol|rifle|edt|sq|thot|tar|handy|club)\//); return m ? m[1] : 'pistol';
   }
   function build() {
     var sw = document.querySelector('.crumbs .site-sw');
